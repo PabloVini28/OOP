@@ -26,5 +26,6 @@ class Solver{
     a1.ler();
     float total = a1.calculaMedia();
     IO.printf("%.2f",total);
+    
     }
 }
