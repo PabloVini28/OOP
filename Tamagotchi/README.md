@@ -1,18 +1,10 @@
-## Getting Started
+# Java Class ☕
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Overview
+The Pet class implements a virtual pet simulation, allowing the user to manage the pet's attributes and perform actions such as eating, playing, taking a shower, and sleeping. The pet has energy, hunger, cleanliness, and an age tracker. If not properly cared for, the pet can die due to neglect.
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Features
+  - Attributes: Energy, hunger, cleanliness, age, and diamonds earned.
+  - Actions: Feed, play, clean, and sleep.
+  - Lifespan Management: The pet can die if energy, hunger, or cleanliness reaches zero.
+  - Dynamic Status: Each action affects multiple attributes and contributes to the pet's aging

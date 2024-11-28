@@ -1,18 +1,9 @@
-## Getting Started
+# Java Class ☕
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Overview
+This program defines an Aluno class for managing student information and calculating their grade average. The program interacts with the user to read student details and grades, computes the average, and outputs the result.
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Features
+  - Student Information: Input the student's name and grades for three subjects.
+  - Average Grade Calculation: Automatically calculates the average of three grades.
+  - Formatted Output: Displays the average grade with two decimal points.

@@ -1,18 +1,11 @@
-## Getting Started
+# Java Class ☕
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Overview
+This project provides an implementation of a Time class to simulate a 24-hour clock. It includes methods to set, retrieve, and increment time values while ensuring valid hour, minute, and second constraints.
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Features
+  - Time Initialization: Define a specific time with hours, minutes, and seconds.
+  - Validation: Ensures hours, minutes, and seconds are within valid ranges.
+  - Increment Seconds: Automatically adjusts minutes and hours when seconds overflow.
+  - 24-Hour Clock: Resets to 00:00:00 after reaching 23:59:59.
+  - Formatted Display: Outputs time in hh:mm:ss format.
