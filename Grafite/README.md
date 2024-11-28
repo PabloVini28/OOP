@@ -1,18 +1,31 @@
-## Getting Started
+# Java Class ☕
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Overview
+This program simulates a mechanical pencil that manages the insertion, removal, and usage of leads. The pencil has a specific caliber, and only compatible leads can be inserted.
 
-## Folder Structure
+## Features
+     - Initialize Pencil
 
-The workspace contains two folders by default, where:
+    - Starts a pencil with a given caliber and no lead loaded.
+    - Insert Lead
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+    - Adds a lead by specifying:
+    - Caliber: A float indicating the lead's thickness.
+    - Hardness: A string such as "HB", "2B", "4B", or "6B".
+    - Length: An int indicating the lead's size in millimeters.
+    - Incompatible leads (wrong caliber) are rejected.
+    - Remove Lead
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+    - Removes the lead from the pencil if one is loaded.
+    - Write on Paper
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+    - Writing is only possible if:
+    - There is a lead loaded.
+    - The lead's length is greater than 10mm.
+    - Lead consumption depends on hardness:
+    - "HB": 1mm per page.
+    - "2B": 2mm per page.
+    - "4B": 4mm per page.
+    - "6B": 6mm per page.
+    - Writing stops when the lead is reduced to 10mm, as the last 10mm cannot be used.
+    - If there is not enough lead to complete a page, it alerts that the text is incomplete.
