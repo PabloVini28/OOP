@@ -31,10 +31,10 @@ public class Pencil {
         }
         
         if(getThickness() < grafite.getThickness()){
-            IO.println("fail: calibre incompativel");
+            IO.println("fail: calibre incompatível");
             return false;
         } 
-        this.tip = grafite;
+        this.barrel.add(grafite);
         return true;
     }
 
@@ -49,7 +49,7 @@ public class Pencil {
 
     public void writePage() {
         if(this.tip==null){
-            IO.println("fail: nao existe grafite");
+            IO.println("fail: nao existe grafite no bico");
             return;
         }
         if(tip.getSize() == 10){
@@ -67,24 +67,31 @@ public class Pencil {
     }
     
     public boolean pull(){
-        if(!hasLead()){
+        if(hasLead()){
+            IO.println("fail: ja existe grafite no bico");
             return false;
         }
-        if(barrel == null){
+        if(this.barrel.isEmpty()){
             return false;
         }
-        Lead primeiro = this.barrel.getFirst();
-        this.barrel.removeFirst();
-        insert(primeiro);
+        this.tip = this.barrel.remove(0);
         return true;
     }
     
     public String toString() {
-        String saida = "calibre: " + thickness + ", grafite: ";
-        if (tip != null)
-            saida += "[" + tip + "]";
+        String saida = "calibre: " + this.thickness + ", bico: ";
+        if (this.tip != null)
+            saida += "[" + this.tip + "], ";
         else
-            saida += "null";
+            saida += "[], ";
+        
+        saida += "tambor: {";
+        
+        for(Lead lead : this.barrel){
+            saida += "[" + lead + "]";
+        }
+        saida += "}";
+
         return saida;
     }
 }
