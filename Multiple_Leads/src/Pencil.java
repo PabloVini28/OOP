@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class Pencil {
     private float thickness;
     private Lead tip;
-    private ArrayList<Lead> bar;
+    private ArrayList<Lead> barrel;
 
     public Pencil(float thickness) {
         this.thickness = thickness;
         this.tip = null;
-        this.bar = new ArrayList<>();
+        this.barrel = new ArrayList<>();
     }
 
     public float getThickness() {
