@@ -56,33 +56,6 @@ public class Pencil {
             IO.println("fail: tamanho insuficiente");
             return;
         }
-        // if(tip.getHardness() == "2B"){
-        //     if(tip.getSize() <= 11){
-        //         IO.println("fail: folha incompleta");
-        //         tip.setSize(10);
-        //         return;
-        //     }
-        //     tip.setSize(tip.getSize() - 2);
-        //     return;
-        // }
-        // if(tip.usagePerSheet() == 4){
-        //     if(tip.getSize() <= 13){
-        //         IO.println("fail: folha incompleta");
-        //         tip.setSize(10);
-        //         return;
-        //     }
-        //     tip.setSize(tip.getSize() - 4);
-        //     return;
-        // }
-        // if(tip.usagePerSheet() == 6){
-        //     if(tip.getSize() <= 15){
-        //         IO.println("fail: folha incompleta");
-        //         tip.setSize(10);
-        //         return;
-        //     }
-        //     tip.setSize(tip.getSize() - 6);
-        //     return;
-        // }
         
         if(tip.getSize() - 10 <  tip.usagePerSheet() ){
             IO.println("fail: folha incompleta");
@@ -100,7 +73,10 @@ public class Pencil {
         if(barrel == null){
             return false;
         }
-                return false;
+        Lead primeiro = this.barrel.getFirst();
+        this.barrel.removeFirst();
+        insert(primeiro);
+        return true;
     }
     
     public String toString() {
