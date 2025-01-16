@@ -36,8 +36,10 @@ public class Slot {
     }
 
     @Override
-    public String toString(){
-        
+    public String toString() {
+    String out = "[ " + getName() + " " + getQuantity() + " U : " 
+                 + String.format("%.2f", getPrice()) + " RS ]";
+    return out;
     }
 
 }

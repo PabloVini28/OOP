@@ -10,6 +10,7 @@ public class VendingMachine {
 
     public VendingMachine(int capacity) {
         this.capacity = capacity;
+
     }
 
     public Slot getSlot(int index){
@@ -31,6 +32,8 @@ public class VendingMachine {
     public float withdrawCash(){
         float cashAux = this.cash;
         this.cash = 0;
+        String message = String.format("voce recebeu %.2f RS", cashAux);
+        IO.println(message);
         return cashAux;
     }
 
@@ -59,7 +62,11 @@ public class VendingMachine {
 
     @Override
     public String toString(){
-        
+        String out = String.format("saldo: %.2f\n", this.cash);
+        for(int i = 0 ; i < this.capacity ; i++){
+            out = i + " [ ";
+        }
+        return out;
     }
     
 
