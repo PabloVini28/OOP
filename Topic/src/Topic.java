@@ -2,15 +2,15 @@ import java.util.ArrayList;
 
 public class Topic {
     
-    private ArrayList<Pass> prioritySeats;
-    private ArrayList<Pass> normalSeats;
+    private ArrayList<Pass> prioritySeats = new ArrayList<Pass>();
+    private ArrayList<Pass> normalSeats = new ArrayList<Pass>();
 
     Topic(int capacity, int qtdPriority){
         for(int i = 0 ; i < qtdPriority ; i++){
-            prioritySeats.add(null);
+            this.prioritySeats.add(null);
         }
         for(int i = 0 ; i< capacity - qtdPriority ; i++){
-            normalSeats.add(null);
+            this.normalSeats.add(null);
         }
     }
 
@@ -93,7 +93,34 @@ public class Topic {
 
     @Override
     public String toString(){
-        
+        if(this.prioritySeats.size() == 0 && this.normalSeats.size() == 0){
+            return "[]";
+        }
+        String str = "[";
+        for(int i = 0 ; i < this.prioritySeats.size() ; i++){
+            if(this.prioritySeats.get(i) == null){
+                str += "@ ";
+            }
+            else{
+                str += "@" + this.prioritySeats.get(i).getName() + ":" + this.prioritySeats.get(i).getAge() + " ";
+            }
+        }
+        for(int i = 0 ; i < this.normalSeats.size() ; i++){
+            if(this.normalSeats.get(i) == null){
+                if(i == this.normalSeats.size()-1){
+                    str += "=";
+                }
+                else{
+                    str += "= ";
+                }
+            }
+            else
+                {
+                    str += "=" + this.normalSeats.get(i).getName() + ":" + this.normalSeats.get(i).getAge() + " ";
+                }
+            
+        }
+        return str + "]";
     }
 
 }
