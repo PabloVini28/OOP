@@ -14,41 +14,74 @@ public class Topic {
         }
     }
 
-    public boolean insert(Pass pass){
-        if(pass.isPriority()){
-            for(int i = 0 ; i < this.prioritySeats.size() ; i++){
-                if(this.prioritySeats.get(i) == null){
+    public boolean insert(Pass pass) {
+        if (pass.isPriority()) {
+            // Tenta inserir em assentos prioritários
+            for (int i = 0; i < this.prioritySeats.size(); i++) {
+                if (this.prioritySeats.get(i) != null && 
+                    this.prioritySeats.get(i).getName().equals(pass.getName()) &&
+                    this.prioritySeats.get(i).getAge() == pass.getAge()) {
+                    IO.println("fail: " + pass.getName() + " ja esta na topic");
+                    return false;
+                }
+            }
+            for (int i = 0; i < this.prioritySeats.size(); i++) {
+                if (this.prioritySeats.get(i) == null) {
                     this.prioritySeats.set(i, pass);
                     return true;
                 }
             }
-            for(int i = 0 ; i < normalSeats.size(); i++){
-                if(normalSeats.get(i) == null){
-                    normalSeats.set(i, pass);
+            // Tenta inserir em assentos normais
+            for (int i = 0; i < this.normalSeats.size(); i++) {
+                if (this.normalSeats.get(i) != null && 
+                    this.normalSeats.get(i).getName().equals(pass.getName()) &&
+                    this.normalSeats.get(i).getAge() == pass.getAge()) {
+                    IO.println("fail: " + pass.getName() + " ja esta na topic");
+                    return false;
+                }
+            }
+            for (int i = 0; i < this.normalSeats.size(); i++) {
+                if (this.normalSeats.get(i) == null) {
+                    this.normalSeats.set(i, pass);
                     return true;
                 }
             }
-            IO.println( "fail: topic lotada" );
-            return false;      
+        } else {
+            // Tenta inserir em assentos normais
+            for (int i = 0; i < this.normalSeats.size(); i++) {
+                if (this.normalSeats.get(i) != null && 
+                    this.normalSeats.get(i).getName().equals(pass.getName()) &&
+                    this.normalSeats.get(i).getAge() == pass.getAge()) {
+                    IO.println("fail: " + pass.getName() + " ja esta na topic");
+                    return false;
+                }
+            }
+            for (int i = 0; i < this.normalSeats.size(); i++) {
+                if (this.normalSeats.get(i) == null) {
+                    this.normalSeats.set(i, pass);
+                    return true;
+                }
+            }
+            
+            for (int i = 0; i < this.prioritySeats.size(); i++) {
+                if (this.prioritySeats.get(i) != null && 
+                    this.prioritySeats.get(i).getName().equals(pass.getName()) &&
+                    this.prioritySeats.get(i).getAge() == pass.getAge()) {
+                    IO.println("fail: " + pass.getName() + " ja esta na topic");
+                    return false;
+                }
+            }
+            for (int i = 0; i < this.prioritySeats.size(); i++) {
+                if (this.prioritySeats.get(i) == null) {
+                    this.prioritySeats.set(i, pass);
+                    return true;
+                }
+            }
         }
-        else{
-            for(int i = 0 ; i < normalSeats.size() ; i++){
-                if(normalSeats.get(i) == null){
-                    normalSeats.set(i, pass);
-                    return true;
-                }
-            }
-            for(int i = 0 ; i < prioritySeats.size() ; i++){
-                if(prioritySeats.get(i) == null){
-                    prioritySeats.set(i, pass);
-                    return true;
-                }
-            }
-            IO.println( "fail: topic lotada" );
-            return false; 
-        }
-        
+        IO.println("fail: topic lotada");
+        return false;
     }
+    
 
     public boolean remove(String name){
         for(int i = 0 ; i < prioritySeats.size() ; i++){
@@ -63,6 +96,7 @@ public class Topic {
                 return true;
             }
         }
+        IO.println("fail: " + name +" nao esta na topic");
         return false;
     }
 
