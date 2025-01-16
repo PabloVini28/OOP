@@ -16,18 +16,20 @@ public class Topic {
 
     public boolean insert(Pass pass){
         if(pass.isPriority()){
-            for(int i = 0 ; i < prioritySeats.size() ; i++){
-                if(prioritySeats.get(i) == null){
-                    prioritySeats.set(i, pass);
+            for(int i = 0 ; i < this.prioritySeats.size() ; i++){
+                if(this.prioritySeats.get(i) == null){
+                    this.prioritySeats.set(i, pass);
                     return true;
                 }
             }
-            for(int i = 0 ; i < normalSeats.size() ; i++){
+            for(int i = 0 ; i < normalSeats.size(); i++){
                 if(normalSeats.get(i) == null){
                     normalSeats.set(i, pass);
                     return true;
                 }
             }
+            IO.println( "fail: topic lotada" );
+            return false;      
         }
         else{
             for(int i = 0 ; i < normalSeats.size() ; i++){
@@ -42,8 +44,9 @@ public class Topic {
                     return true;
                 }
             }
+            IO.println( "fail: topic lotada" );
+            return false; 
         }
-        return false;
         
     }
 
@@ -114,11 +117,15 @@ public class Topic {
                     str += "= ";
                 }
             }
-            else
-                {
-                    str += "=" + this.normalSeats.get(i).getName() + ":" + this.normalSeats.get(i).getAge() + " ";
+            else{
+                if(i == this.normalSeats.size()-1){
+                    str += "=" + this.normalSeats.get(i).getName() + ":" + this.normalSeats.get(i).getAge();
+                }
+                else{
+                str += "=" + this.normalSeats.get(i).getName() + ":" + this.normalSeats.get(i).getAge() + " ";
                 }
             
+            }   
         }
         return str + "]";
     }
