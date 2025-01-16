@@ -24,8 +24,43 @@ public class VendingMachine {
         this.slots.remove(index);
     }
 
-    
+    public void insertCash(float cash){
+        this.cash += cash;
+    }
 
+    public float withdrawCash(){
+        float cashAux = this.cash;
+        this.cash = 0;
+        return cashAux;
+    }
+
+    public float getCash(){
+        return this.cash;
+    }
+
+    public float getProfit(){
+        return this.profit;
+    }
+
+    public void buyItem(int index){
+        if(this.slots.get(index) == null){
+            return;
+        }
+        if(getCash() < this.slots.get(index).getPrice()){
+            return;
+        }
+        if(this.slots.get(index).getQuantity() == 0){
+            return;
+        }
+
+        this.slots.get(index).setQuantity(this.slots.get(index).getQuantity() - 1);
+        this.cash -= this.slots.get(index).getPrice();
+    }
+
+    @Override
+    public String toString(){
+        
+    }
     
 
 }
