@@ -10,8 +10,6 @@ class Solver {
             else if ( line[0].equals("arrive") )  { market.arrive( new Person( line[1] ) ); }
             else if ( line[0].equals("call")   )  { market.call( IO.strToInt( line[1] ) ); }
             else if ( line[0].equals("finish") )  { market.finish( IO.strToInt( line[1] ) ); }
-            else if ( line[0].equals("cut")    )  { market.cutInLine( new Person( line[1] ), line[2] ); }
-            else if ( line[0].equals("giveup") )  { market.giveUp( line[1] ); }
             else if ( line[0].equals("print")  )  { IO.println( market.toString() ); }
             else{ IO.println("fail: comando invalido"); }
         }

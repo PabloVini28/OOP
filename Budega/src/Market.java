@@ -9,8 +9,11 @@ public class Market {
         return index >= 0 && index < this.counters.size();
     }
 
-    public Market(int CounterCount){
-        this.counters = new ArrayList<>(CounterCount);
+    public Market(int counterCount){
+        this.counters = new ArrayList<>();
+        for (int i=0; i<counterCount; i++) {
+            this.counters.add(null);
+        }
         this.queue = new LinkedList<>();
     }
 
@@ -19,87 +22,59 @@ public class Market {
     }
 
     public void call(int index){
-        if (validateIndex(index)){
-            if (!this.queue.isEmpty()){
-                Person person = queue.removeFirst();
-                this.counters.add(person);
-            }
+        if (this.counters.get(index) != null) {
+            IO.println("fail: caixa ocupado");
+            return;
         }
+
+        if (this.queue.isEmpty()) {
+            IO.println("fail: sem clientes");
+            return;
+        }
+        
+        Person person = queue.removeFirst();
+        this.counters.set(index,person);
     }
 
     public void finish(int index){
-        if (validateIndex(index)){
-            this.counters.remove(index);
+        if (!validateIndex(index)) {
+            IO.println("fail: caixa inexistente");
+            return;
         }
+
+        if (this.counters.get(index) == null) {
+            IO.println("fail: caixa vazio");
+            return;
+        }
+
+        this.counters.set(index,null);
     }
 
-    public boolean cutInLine(Person sneaky, String gullible){
-        int index = -1;
-        for (int i = 0; i < this.queue.size(); i++){
-            if (this.queue.get(i).getName().equals(gullible)){
-                index = i;
-                break;
-            }
-        }
-        if (index == -1){
-            return false;
-        }
-        this.queue.add(index, sneaky);
-        return true;
-    }
-
-    public boolean giveUp(String name){
-        for (int i = 0; i < this.queue.size(); i++){
-            if (this.queue.get(i).getName().equals(name)){
-                this.queue.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public String toString(){
+    @Override
+    public String toString() {
         String out = "Caixas: [";
-        if(this.counters.isEmpty()){
-            for(int i = 0 ; i < this.counters.size(); i++){
-                if(i == this.counters.size() - 1){
-                    out += "]";
-                }else{
-                    out += "-----, ";
-                }
-            }
-        
-        }
-        else{
-            for(int i = 0 ; i < this.counters.size(); i++){
-                if(i == this.counters.size() - 1){
-                    out += this.counters.get(i) + "]";
-                }else{
-                    out += this.counters.get(i) + ", ";
-                }
+        for (int i = 0; i < this.counters.size(); i++) {
+            if (this.counters.get(i) == null) out += "-----";
+            else out += this.counters.get(i);
+            if (i < this.counters.size() - 1) {
+                out += ", ";
             }
         }
-
+        out += "]";
+    
         String out2 = "Espera: [";
-        if(this.queue.isEmpty()){
-            for(int i = 0 ; i < this.queue.size(); i++){
-                if(i == this.queue.size() - 1){
-                    out2 += "]";
-                }else{
-                    out2 += "-----, ";
+        if (this.queue.isEmpty()) {
+            // Nenhum elemento na fila de espera
+        } else {
+            for (int i = 0; i < this.queue.size(); i++) {
+                out2 += this.queue.get(i);
+                if (i < this.queue.size() - 1) {
+                    out2 += ", ";
                 }
             }
         }
-        else{
-            for(int i = 0 ; i < this.queue.size(); i++){
-                if(i == this.queue.size() - 1){
-                    out2 += this.queue.get(i) + "]";
-                }else{
-                    out2 += this.queue.get(i) + ", ";
-                }
-            }
-        }
-
+        out2 += "]";
+    
         return out + "\n" + out2;
     }
 }
