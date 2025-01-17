@@ -35,6 +35,11 @@ class IO {
     static public String[] inputParts() {
         return scan.nextLine().split(" ");
     }
+    static public String[] inputPartsPrintingLine() {
+        String line = IO.input();
+        IO.println("$" + line);
+        return line.split(" ");
+    }
 
     //conversores
     static public int strToInt( String str ) {

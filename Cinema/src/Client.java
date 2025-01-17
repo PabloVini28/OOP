@@ -24,8 +24,4 @@ public class Client {
         return this.phone;
     }
 
-    @Override
-    public String toString(){
-        
-    }
 }
