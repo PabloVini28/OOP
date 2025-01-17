@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Theater {
     
-    private ArrayList<Client> seats = new ArrayList<>();
+    private final ArrayList<Client> seats = new ArrayList<>();
 
 
     Theater(int capacity){
@@ -11,14 +11,15 @@ public class Theater {
         }
     }
 
-    private int search(String name){
-        for(int i = 0 ; i < this.seats.size() ; i++){
-            if(this.seats.get(i).getId().equals(name)){
-                return i;
-            }
+   private int search(String name) {
+    for (int i = 0; i < this.seats.size(); i++) {
+        Client client = this.seats.get(i);
+        if (client != null && client.getId().equals(name)) {
+            return i;
         }
-        return -1;
     }
+    return -1;
+}
 
     private boolean verifyIndex(int index){
         return index >= 0 && index < this.seats.size();
@@ -56,7 +57,7 @@ public class Theater {
 
     @Override
     public String toString(){
-        String out = "[ ";
+        String out = "[";
         for(int i = 0 ; i < this.seats.size();i++){
             if(this.seats.get(i) == null){
                 if(this.seats.size() - 1 == i){
@@ -75,7 +76,7 @@ public class Theater {
                 }
             }
         }
-        out += " ]";
+        out += "]";
         return out;
     }
 
