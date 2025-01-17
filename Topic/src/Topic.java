@@ -15,16 +15,22 @@ public class Topic {
     }
 
     public boolean insert(Pass pass) {
+        // Verificar se o passageiro já está em algum assento
+        for (Pass p : this.prioritySeats) {
+            if (p != null && p.getName().equals(pass.getName())) {
+                IO.println("fail: " + pass.getName() + " ja esta na topic");
+                return false;
+            }
+        }
+        for (Pass p : this.normalSeats) {
+            if (p != null && p.getName().equals(pass.getName())) {
+                IO.println("fail: " + pass.getName() + " ja esta na topic");
+                return false;
+            }
+        }
+    
         if (pass.isPriority()) {
             // Tenta inserir em assentos prioritários
-            for (int i = 0; i < this.prioritySeats.size(); i++) {
-                if (this.prioritySeats.get(i) != null && 
-                    this.prioritySeats.get(i).getName().equals(pass.getName()) &&
-                    this.prioritySeats.get(i).getAge() == pass.getAge()) {
-                    IO.println("fail: " + pass.getName() + " ja esta na topic");
-                    return false;
-                }
-            }
             for (int i = 0; i < this.prioritySeats.size(); i++) {
                 if (this.prioritySeats.get(i) == null) {
                     this.prioritySeats.set(i, pass);
@@ -32,14 +38,6 @@ public class Topic {
                 }
             }
             // Tenta inserir em assentos normais
-            for (int i = 0; i < this.normalSeats.size(); i++) {
-                if (this.normalSeats.get(i) != null && 
-                    this.normalSeats.get(i).getName().equals(pass.getName()) &&
-                    this.normalSeats.get(i).getAge() == pass.getAge()) {
-                    IO.println("fail: " + pass.getName() + " ja esta na topic");
-                    return false;
-                }
-            }
             for (int i = 0; i < this.normalSeats.size(); i++) {
                 if (this.normalSeats.get(i) == null) {
                     this.normalSeats.set(i, pass);
@@ -49,28 +47,12 @@ public class Topic {
         } else {
             // Tenta inserir em assentos normais
             for (int i = 0; i < this.normalSeats.size(); i++) {
-                if (this.normalSeats.get(i) != null && 
-                    this.normalSeats.get(i).getName().equals(pass.getName()) &&
-                    this.normalSeats.get(i).getAge() == pass.getAge()) {
-                    IO.println("fail: " + pass.getName() + " ja esta na topic");
-                    return false;
-                }
-            }
-            for (int i = 0; i < this.normalSeats.size(); i++) {
                 if (this.normalSeats.get(i) == null) {
                     this.normalSeats.set(i, pass);
                     return true;
                 }
             }
-            
-            for (int i = 0; i < this.prioritySeats.size(); i++) {
-                if (this.prioritySeats.get(i) != null && 
-                    this.prioritySeats.get(i).getName().equals(pass.getName()) &&
-                    this.prioritySeats.get(i).getAge() == pass.getAge()) {
-                    IO.println("fail: " + pass.getName() + " ja esta na topic");
-                    return false;
-                }
-            }
+            // Tenta inserir em assentos prioritários
             for (int i = 0; i < this.prioritySeats.size(); i++) {
                 if (this.prioritySeats.get(i) == null) {
                     this.prioritySeats.set(i, pass);
@@ -78,9 +60,11 @@ public class Topic {
                 }
             }
         }
+    
         IO.println("fail: topic lotada");
         return false;
     }
+
     
 
     public boolean remove(String name){
