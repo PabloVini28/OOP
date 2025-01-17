@@ -54,6 +54,30 @@ public class Theater {
         return this.seats;
     }
 
+    @Override
+    public String toString(){
+        String out = "[ ";
+        for(int i = 0 ; i < this.seats.size();i++){
+            if(this.seats.get(i) == null){
+                if(this.seats.size() - 1 == i){
+                    out += "-";
+                }
+                else{
+                    out += "- ";
+                }
+            }
+            else{
+                if(this.seats.size() - 1 == i){
+                    out += this.seats.get(i).getId() + ":" + this.seats.get(i).getPhone();
+                }
+                else{
+                    out += this.seats.get(i).getId() + ":" + this.seats.get(i).getPhone() + " ";
+                }
+            }
+        }
+        out += " ]";
+        return out;
+    }
 
 
 }
