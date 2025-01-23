@@ -9,24 +9,33 @@ public class VendingMachine {
     private int capacity;
 
     public VendingMachine(int capacity) {
-        this.capacity = capacity;
-        for(int i = 0 ; i < capacity ; i++){
-            this.slots.get(i).setName("empty");
-            this.slots.get(i).setPrice(0);
-            this.slots.get(i).setQuantity(0);
-        }
+    this.capacity = capacity;
+    this.profit = 0;
+    this.cash = 0;
+    
+    for (int i = 0; i < capacity; i++) {
+        Slot slot = new Slot("empty", 0, 0); 
+        this.slots.add(slot); 
     }
+}
 
     public Slot getSlot(int index){
         return this.slots.get(index);
     }
 
     public void setSlot(int index, Slot slot){
+        if(index <0 || index >= this.capacity){
+            IO.println("fail: indice nao existe");
+            return;
+        }
         this.slots.set(index, slot);
+        return;
     }
 
     public void clearSlot(int index){
-        this.slots.remove(index);
+        this.slots.get(index).setName("empty");
+        this.slots.get(index).setPrice(0);
+        this.slots.get(index).setQuantity(0);
     }
 
     public void insertCash(float cash){
@@ -49,32 +58,47 @@ public class VendingMachine {
         return this.profit;
     }
 
-    public void buyItem(int index){
-        if(this.slots.get(index) == null){
+    public void buyItem(int index) {
+        if (index < 0 || index >= this.capacity) {  
+            IO.println("fail: indice nao existe");
             return;
-        }
-        if(getCash() < this.slots.get(index).getPrice()){
+    }
+        
+    if (this.slots.get(index) == null) {
+            IO.println("fail: espiral sem produtos");
             return;
-        }
-        if(this.slots.get(index).getQuantity() == 0){
+    }
+    if (getCash() < this.slots.get(index).getPrice()) {
+            IO.println("fail: saldo insuficiente");
             return;
-        }
+    }
+    
+    if (this.slots.get(index).getQuantity() == 0) {
+            IO.println("fail: espiral sem produtos");
+            return;
+    }
 
-        this.slots.get(index).setQuantity(this.slots.get(index).getQuantity() - 1);
-        this.cash -= this.slots.get(index).getPrice();
+    IO.println("voce comprou um " + this.slots.get(index).getName());
+    this.slots.get(index).setQuantity(this.slots.get(index).getQuantity() - 1);
+    this.cash -= this.slots.get(index).getPrice();
     }
 
     @Override
-    public String toString(){
-        String out = String.format("saldo: %.2f\n", this.cash);
-        for(int i = 0 ; i < this.capacity ; i++){
-            out += "[ ";
-            out += this.slots.get(i).getName();
-            out += " : " + this.slots.get(i).getQuantity() + " U : ";
-            out += this.slots.get(i).getPrice() + " RS]\n";
+    public String toString() {
+    String out = String.format("saldo: %.2f\n", this.cash);
+
+    for (int i = 0; i < this.capacity; i++) {
+        Slot slot = this.slots.get(i);
+        if(slot.getName().equals("empty")){
+            out += String.format("%d [   ", i);
         }
-        return out;
+        else out += String.format("%d [ ", i);
+        out += slot.getName();
+        out += String.format(" : %d U : %.2f RS]\n", slot.getQuantity(), slot.getPrice());
     }
+
+    return out;
+}
     
 
 }
