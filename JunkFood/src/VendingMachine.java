@@ -10,7 +10,11 @@ public class VendingMachine {
 
     public VendingMachine(int capacity) {
         this.capacity = capacity;
-
+        for(int i = 0 ; i < capacity ; i++){
+            this.slots.get(i).setName("empty");
+            this.slots.get(i).setPrice(0);
+            this.slots.get(i).setQuantity(0);
+        }
     }
 
     public Slot getSlot(int index){
@@ -64,7 +68,10 @@ public class VendingMachine {
     public String toString(){
         String out = String.format("saldo: %.2f\n", this.cash);
         for(int i = 0 ; i < this.capacity ; i++){
-            out = i + " [ ";
+            out += "[ ";
+            out += this.slots.get(i).getName();
+            out += " : " + this.slots.get(i).getQuantity() + " U : ";
+            out += this.slots.get(i).getPrice() + " RS]\n";
         }
         return out;
     }
