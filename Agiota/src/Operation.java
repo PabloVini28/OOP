@@ -26,6 +26,10 @@ public class Operation {
         return this.label;
     }
 
+    public int getValue(){
+        return this.value;
+    }
+
     @Override
     public String toString() {
         return "id:" + this.id + " " + this.label + ":" + this.name + " " + this.value;

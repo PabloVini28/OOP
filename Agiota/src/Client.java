@@ -34,9 +34,22 @@ public class Client {
         this.operations.add( operation );
     }
 
+    public int getBalance(){
+        int devendo = 0;
+        for(int i = 0 ; i < this.operations.size() ; i++){
+            if(this.operations.get(i).getLabel() == Label.TAKE){ // cliente devolvendo dinheiro
+                devendo -= this.operations.get(i).getValue();
+            }
+            else{
+                devendo += this.operations.get(i).getValue();
+            }
+        }
+        return devendo;
+    }
+
     @Override
     public String toString() {
-        String ss = this.name + " " + this.getBalance() + "/" + this.limite + "\n";
+        String ss = this.name + " " + this.getBalance() + "/" + this.limit + "\n";
         for ( Operation oper : this.operations ) {
             ss += oper + "\n";
         }
