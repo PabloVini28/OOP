@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 // class Comparador implements Comparator<Client> {
 //     public int compare(Client c1, Client c2) {
@@ -80,44 +78,74 @@ class Agiota {
 
     public void give(String name, int value) { // throws Exception
         Client cl = getClient(name);
+        if(getClient(name) == null){
+            IO.println("fail: cliente nao existe");
+            return;
+        }
+        if(cl.getBalance() + value > cl.getLimit()){
+            IO.println("fail: limite excedido");
+            return;
+        }
         pushOperation(cl, name, Label.GIVE, value);
     }
 
     public void take(String name, int value) { // throws Exception 
+        Client cl = getClient(name);
+        if(getClient(name) == null){
+            IO.println("fail: cliente nao existe");
+            return;
+        }
+        if(cl.getBalance() - value < -cl.getLimit()){
+            IO.println("fail: limite excedido");
+            return;
+        }
+        pushOperation(cl, name, Label.TAKE, value);
     }
 
     public void kill(String name) {
+        Client cl = getClient(name);
+        if(getClient(name) == null){
+            IO.println("fail: cliente nao existe");
+            return;
+        }
+        this.deathList.add(cl);
+        this.aliveList.remove(cl);
+        //adicionar lista de operações daquele cliente na outra lista
+        for(int i = 0 ; i < cl.getOperations().size() ; i++){
+            this.deathOper.add(cl.getOperations().get(i));
+            this.aliveOper.remove(cl.getOperations().get(i));
+        }
     }
 
     public void plus() {
-        for (Client client : this.aliveList) {
-            this.pushOperation( client, client.getName(), Label.PLUS, (int) Math.ceil( 0.1*client.getBalance() ) );
-        }
+        //for (Client client : this.aliveList) {
+        //    this.pushOperation( client, client.getName(), Label.PLUS, (int) Math.ceil( 0.1*client.getBalance() ) );
+        //}
         // for (Client client : this.aliveList) {
         //     if ( client.getBalance() > client.getLimite() ) {
         //         this.kill( client.getName() );
         //     }
         // }
-        for (int i=0; i<this.aliveList.size(); i++) {
-            Client client = this.aliveList.get(i);
-            if ( client.getBalance() > client.getLimite() ) {
-                this.kill( client.getName() );
-                i--;
-            }
-        }
+        //for (int i=0; i<this.aliveList.size(); i++) {
+        //    Client client = this.aliveList.get(i);
+        //    if ( client.getBalance() > client.getLimite() ) {
+        //        this.kill( client.getName() );
+        //        i--;
+        //    }
+        //}
     }
 
     @Override
     public String toString() {
         String ss = "";
         for ( Client client : this.aliveList ) {
-            ss += ":) " + client.getName() + " " + client.getBalance() + "/" + client.getLimite() + "\n";
+            ss += ":) " + client.getName() + " " + client.getBalance() + "/" + client.getLimit() + "\n";
         }
         for ( Operation oper : this.aliveOper ) {
             ss += "+ " + oper + "\n";
         }
         for ( Client client : this.deathList ) {
-            ss += ":( " + client.getName() + " " + client.getBalance() + "/" + client.getLimite() + "\n";
+            ss += ":( " + client.getName() + " " + client.getBalance() + "/" + client.getLimit() + "\n";
         }
         for ( Operation oper : this.deathOper ) {
             ss += "- " + oper + "\n";
