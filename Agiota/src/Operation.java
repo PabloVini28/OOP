@@ -25,4 +25,9 @@ public class Operation {
     public Label getLabel(){
         return this.label;
     }
+
+    @Override
+    public String toString() {
+        return "id:" + this.id + " " + this.label + ":" + this.name + " " + this.value;
+    }
 }

@@ -9,14 +9,16 @@ import java.util.Comparator;
 // }
 
 class Agiota {
-    
+
     private ArrayList<Client> aliveList;
     private ArrayList<Client> deathList;
     private ArrayList<Operation> aliveOper;
     private ArrayList<Operation> deathOper;
 
     private int searchClient(String name) {
+
     }
+    
     private void pushOperation(Client client, String name, Label label, int value) {
         Operation oper = new Operation( name, label, value );
         this.aliveOper.add( oper );
