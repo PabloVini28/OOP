@@ -1,6 +1,10 @@
-
 public enum Label {
     GIVE,
     TAKE,
-    PLUS
+    PLUS;
+
+    @Override
+    public String toString(){
+        return this.name();
+    }
 }

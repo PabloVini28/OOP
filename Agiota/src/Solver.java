@@ -1,18 +1,22 @@
-class Solver {
-    public static void main (String[] args) {
+public class Solver {
+    public static void main(String[] arg) {
+        System.out.println("side_by_side=080");
+        
         Agiota agiota = new Agiota();
 
         while (true) {
             String[] line = IO.inputPartsPrintingLine();
 
-            if      ( line[0].equals("end")    )  { break;                                                                               }
-            else if ( line[0].equals("show")   )  { IO.println( pencil.toString() );                                                     }
-            else if ( line[0].equals("init")   )  { pencil = new Pencil( IO.strToFloat(line[1]) );                                       }
-            else if ( line[0].equals("insert") )  { pencil.insert( new Lead( IO.strToFloat(line[1]), line[2], IO.strToInt(line[3]) ) );  }
-            else if ( line[0].equals("remove") )  { pencil.remove();                                                                     }
-            else if ( line[0].equals("write")  )  { pencil.writePage();}
-            else if ( line[0].equals("pull")   )  { pencil.pull();}
-            else                                  { IO.println("fail: comando invalido");                                                }
+            if      (line[0].equals("end"))     { break; }
+            else if (line[0].equals("init"))    { agiota = new Agiota(); }
+            else if (line[0].equals("show"))    { IO.print(agiota); }
+            else if (line[0].equals("showCli")) { IO.print( agiota.getClient( line[1] ) ); }
+            else if (line[0].equals("addCli"))  { agiota.addClient( line[1], IO.strToInt(line[2]) ); }
+            else if (line[0].equals("give"))    { agiota.give( line[1], IO.strToInt(line[2]) ); }
+            else if (line[0].equals("take"))    { agiota.take( line[1], IO.strToInt(line[2]) ); }
+            else if (line[0].equals("kill"))    { agiota.kill( line[1] ); }
+            else if (line[0].equals("plus"))    { agiota.plus(); }
+            else                                { IO.println("fail: comando invalido"); }
         }
     }
 }
