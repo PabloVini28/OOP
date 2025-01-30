@@ -53,18 +53,37 @@ class Agiota {
     }
 
     public Agiota() {
+        this.aliveList = new ArrayList<>();
+        this.aliveOper = new ArrayList<>();
+        this.deathList = new ArrayList<>();
+        this.deathOper = new ArrayList<>();
     }
 
     public Client getClient(String name) {
+        for(int i = 0 ; i < this.aliveList.size() ; i++){
+            if(this.aliveList.get(i).getName().equals(name)){
+                return this.aliveList.get(i);
+            }
+        }
+        return null;
     }
 
-    public void addClient(String name, int limite) throws Exception {
+    public void addClient(String name, int limite) { //throws Exception 
+
+        if(getClient(name) != null){
+            IO.println("fail: cliente ja existe");
+            return;
+        }
+        Client client = new Client(name, limite);
+        this.aliveList.add(client);
     }
 
-    public void give(String name, int value) throws Exception {
+    public void give(String name, int value) { // throws Exception
+        Client cl = getClient(name);
+        pushOperation(cl, name, Label.GIVE, value);
     }
 
-    public void take(String name, int value) throws Exception {
+    public void take(String name, int value) { // throws Exception 
     }
 
     public void kill(String name) {
