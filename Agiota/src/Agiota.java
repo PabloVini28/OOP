@@ -16,9 +16,14 @@ class Agiota {
     private ArrayList<Operation> deathOper;
 
     private int searchClient(String name) {
-
+        for(int i = 0 ; i < this.aliveList.size() ; i++){
+            if(this.aliveList.get(i).getName().equals(name)){
+                return i;
+            }
+        }
+        return -1;
     }
-    
+
     private void pushOperation(Client client, String name, Label label, int value) {
         Operation oper = new Operation( name, label, value );
         this.aliveOper.add( oper );
