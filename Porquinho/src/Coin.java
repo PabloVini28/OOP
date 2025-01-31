@@ -1,11 +1,12 @@
-public class Coin {
-    
-    private double value;
-    private int volume;
-    private String label;
+public enum Coin {
+    C10(0.10,1,"0.10"),
+    C25(0.25,2,"0.25"),
+    C50(0.50,3,"0.50"),
+    C100(1,4,"100");
 
-    public Coin C10;
-    public 
+    private final double value;
+    private  int volume;
+    private final String label;
 
     private Coin(double value, int volume, String label){
         this.value = value;
@@ -25,4 +26,13 @@ public class Coin {
         return this.label;
     }
 
+    public void setVolume(int volume){
+        this.volume = volume;
+    }
+
+    @Override
+    public String toString(){
+        String out = String.format("%.2f",getValue()) + ":" + getVolume();
+        return out;
+    }
 }
