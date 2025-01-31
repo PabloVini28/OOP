@@ -141,7 +141,7 @@ public class Pig {
         }
         out += "] : value=" + String.format("%.2f",getValue())  + " : volume=" + getVolume()  
         + "/" + getVolumeMax() + "\n";
-        return out;
+        return  out;
 
     }
 
