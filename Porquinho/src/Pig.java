@@ -14,11 +14,11 @@ public class Pig {
 
     public boolean addCoin(Coin coin){
         if(this.broken == true){
-            IO.println("fail: porco quebrado");
+            IO.println("fail: the pig is broken");
             return false;
         }
         if((getVolume() + coin.getVolume()) > this.volumeMax){
-            IO.println("fail: volume excedido");
+            IO.println("fail: the pig is full");
             return false;
         }
 
@@ -55,6 +55,15 @@ public class Pig {
             IO.println("[]");
             return new ArrayList<>();
         }
+        String out = "[";
+        for(int i = 0 ; i < this.coins.size() ; i++){
+            out += this.coins.get(i).toString();
+            if(this.coins.size() - 1 != i){
+                out += ", ";
+            }
+        }
+        out += "]";
+        IO.println(out);
         this.coins.clear();
         return this.coins;
     }
@@ -73,6 +82,7 @@ public class Pig {
             }
         }
         out += "]";
+        IO.println(out);
         this.items.clear();
         return this.items;
     }
@@ -141,7 +151,7 @@ public class Pig {
         }
         out += "] : value=" + String.format("%.2f",getValue())  + " : volume=" + getVolume()  
         + "/" + getVolumeMax() + "\n";
-        return  out;
+        return out;
 
     }
 
