@@ -39,7 +39,7 @@ public class Client {
             if(this.operations.get(i).getLabel() == Label.TAKE){ // cliente devolvendo dinheiro
                 devendo -= this.operations.get(i).getValue();
             }
-            if(this.operations.get(i).getLabel() == Label.GIVE){ // cliente pegando dinheiro
+            else { //if(this.operations.get(i).getLabel() == Label.GIVE){ // cliente pegando dinheiro
                 devendo += this.operations.get(i).getValue();
             }
         }
