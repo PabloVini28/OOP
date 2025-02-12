@@ -1,10 +1,18 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-// class Comparador implements Comparator<Client> {
-//     public int compare(Client c1, Client c2) {
-//         return c1.getName().compareTo(c2.getName());
-//     }
-// }
+class Comparador implements Comparator<Client> {
+
+    Comparador(){
+
+    }
+
+    @Override
+    public int compare(Client c1, Client c2) {
+        return c1.getName().compareTo(c2.getName());
+    }
+}
 
 class Agiota {
 
@@ -41,13 +49,14 @@ class Agiota {
         //     }
         // });
 
-        // Collections.sort (this.aliveList, new Comparator<Client>() {
-        //     public int compare(Client c1, Client c2) {
-        //         return c1.getName().compareTo(c2.getName());
-        //     }
-        // });
+        Collections.sort (this.aliveList, new Comparator<Client>() {
+            public int compare(Client c1, Client c2) {
+                return c1.getName().compareTo(c2.getName());
+            }
+        });
 
         // Collections.sort (this.aliveList, new Comparador());
+        // this.aliveList.sort(new Comparador());
     }
 
     public Agiota() {
@@ -74,6 +83,8 @@ class Agiota {
         }
         Client client = new Client(name, limite);
         this.aliveList.add(client);
+        
+        this.sortAliveList();
     }
 
     public void give(String name, int value) { // throws Exception
@@ -118,21 +129,21 @@ class Agiota {
     }
 
     public void plus() {
-        //for (Client client : this.aliveList) {
-        //    this.pushOperation( client, client.getName(), Label.PLUS, (int) Math.ceil( 0.1*client.getBalance() ) );
-        //}
+        for (Client client : this.aliveList) {
+            this.pushOperation( client, client.getName(), Label.PLUS, (int) Math.ceil( 0.1*client.getBalance() ) );
+        }
         // for (Client client : this.aliveList) {
-        //     if ( client.getBalance() > client.getLimite() ) {
+        //     if ( client.getBalance() > client.getLimit() ) {
         //         this.kill( client.getName() );
         //     }
         // }
-        //for (int i=0; i<this.aliveList.size(); i++) {
-        //    Client client = this.aliveList.get(i);
-        //    if ( client.getBalance() > client.getLimite() ) {
-        //        this.kill( client.getName() );
-        //        i--;
-        //    }
-        //}
+        for (int i=0; i<this.aliveList.size(); i++) {
+              Client client = this.aliveList.get(i);
+            if ( client.getBalance() > client.getLimit() ) {
+                this.kill( client.getName() );
+                i--;
+            }
+        }
     }
 
     @Override

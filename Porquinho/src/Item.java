@@ -22,4 +22,10 @@ public class Item {
     public void setVolume(int volume){
         this.volume = volume;
     }
+
+    @Override
+    public String toString(){
+        String out = getLabel() + ":" + getVolume();
+        return out;
+    }
 }
