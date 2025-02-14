@@ -25,10 +25,12 @@ class Livro {
         if(anoPublicacao < 1440){
             IO.println("Falha: ano de publicação inválido");
             this.anoPublicacao = 1440;
+            return;
         }
         if(anoPublicacao > 2025){
             IO.println("Falha: ano de publicação inválido");
             this.anoPublicacao = 2025;
+            return;
         }
         
         this.anoPublicacao = anoPublicacao;
@@ -36,7 +38,7 @@ class Livro {
 
     @Override
     public String toString() {
-        String out = "[" + this.titulo + ", " + this.anoPublicacao + "]";
+        String out = "[" + this.titulo + ", " + this.anoPublicacao + "] ";
         return out;
     }
 }

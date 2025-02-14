@@ -1,6 +1,6 @@
 class Leitor {
 
-    private String nome;
+    private final String nome;
     private Livro livroEmprestado;
     private int quantidadedeEmprestimos;
 
@@ -10,19 +10,21 @@ class Leitor {
         this.quantidadedeEmprestimos = 0;
     }
     
+    public String getNome(){
+        return this.nome;
+    }
+    
     public boolean possuiLivroEmprestado(){
-        if(this.livroEmprestado != null){
-            return true;
-        }
-        else return false;
+        return this.livroEmprestado != null;
     }
 
     public void realizarEmprestimo(Livro livroEmprestado) {
         if(possuiLivroEmprestado() == true){
             return;
         }
+        
         this.livroEmprestado = livroEmprestado;
-        this.quantidadedeEmprestimos =+ 1;
+        this.quantidadedeEmprestimos += 1;
         IO.println("Sucesso! Total de empréstimos realizados por " + this.nome + ": " + 
         this.quantidadedeEmprestimos);
     }
@@ -35,13 +37,13 @@ class Leitor {
 
     @Override
     public String toString() {
-        String str = "[" + this.nome;
+        String str = this.nome;
         if(possuiLivroEmprestado() == true){
-            str += "+, " + this.quantidadedeEmprestimos + "]";
+            str += "+, " + this.quantidadedeEmprestimos + "] ";
             return str;
         }
         else{
-            str += "-, " + this.quantidadedeEmprestimos + "]";
+            str += "-, " + this.quantidadedeEmprestimos + "] ";
             return str;
         }
         

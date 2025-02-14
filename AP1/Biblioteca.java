@@ -1,29 +1,26 @@
-
-import java.io.IO;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-
 class Biblioteca {
-    
-    private ArrayList<Livro> livros = new ArrayList<>();
-    private LinkedList<Leitor> leitores = new LinkedList<>();
+
+    private final ArrayList<Livro> livros = new ArrayList<>();
+    private final LinkedList<Leitor> leitores = new LinkedList<>();  // leitores como lista vazia
 
     public Biblioteca(int capacidade) {
         for(int i = 0 ; i < capacidade ; i++){
-            this.livros.add(null);
+            this.livros.add(null);  // preenchendo com null
         }
-
     }
 
     public boolean adicionarLivro(Livro livro) {
+    
         for(int i = 0 ; i < this.livros.size() ; i++){
             if(this.livros.get(i) == null){
-                this.livros.set(i, livro);
+                this.livros.set(i,livro);
                 return true;
             }
         }
-
+        IO.println("Falha: a biblioteca está cheia");
         return false;
     }
 
@@ -32,70 +29,82 @@ class Biblioteca {
     }
 
     public boolean emprestarLivro(int indiceLivro) {
-
+        
         if(this.leitores.isEmpty()){
             IO.println("Falha: fila de leitores vazia");
             return false;
         }
-
-        if(this.leitores.get(0).possuiLivroEmprestado()){
+        
+        for(int i = 0 ; i < this.leitores.size() ; i++){
+            if(this.leitores.get(0).possuiLivroEmprestado()){
                 IO.println("Falha: leitor só pode estar com um livro emprestado por vez");
                 return false;
-        }
-
-        for(int i = 0 ; i < this.livros.size() ; i++){
-            if(this.livros.get(i) == null){
-                IO.println("Falha: livro indisponível");
             }
         }
-
-        for(int i = 0 ; i < this.leitores.size() ; i++){
-            if(this.leitores.get(i).possuiLivroEmprestado() == false){
-                this.leitores.get(i).realizarEmprestimo(this.livros.get(indiceLivro));
-                this.livros.set(indiceLivro, null);
+        
+        boolean flag = false;
+        for(int i = 0 ; i < this.livros.size() ; i++){
+            if(this.livros.get(i) != null && i == indiceLivro){
+                this.leitores.get(0).realizarEmprestimo(this.livros.get(indiceLivro));
+                this.livros.set(indiceLivro,null);
                 this.leitores.addLast(this.leitores.removeFirst());
+                flag = true;
+            }
+            if(flag == true){
+                IO.println("Sucesso! Total de empréstimos realizados por " + this.leitores.get(0).getNome() + 
+                ": 1");
                 return true;
             }
         }
-
+        
+        IO.println("Falha: livro indisponível");
         return false;
     }
 
     public boolean receberLivro() {
+    
         if(this.leitores.isEmpty()){
             IO.println("Falha: fila de leitores vazia");
             return false;
         }
-        
+    
         if(this.leitores.get(0).possuiLivroEmprestado() == false){
             IO.println("Falha: leitor não possui um livro para devolver");
             return false;
         }
-
+    
         if(this.livros.get(0) != null){
-            Livro livrodevolvido = this.leitores.get(0).realizarDevolucao();
-            this.livros.set(0,livrodevolvido);
+            Livro livroDevolvido = this.leitores.get(0).realizarDevolucao();
+            this.adicionarLivro( livroDevolvido );
             this.leitores.addLast(this.leitores.removeFirst());
             return true;
         }
-        
+    
         return false;
     }
-
+    
     @Override
     public String toString() {
         String str = "Livros: { ";
-        for(int i = 0 ; i < this.livros.size() ; i++){
+        for(int i  = 0 ; i < this.livros.size() ; i++){
             if(this.livros.get(i) != null){
-                str += this.livros.get(i).toString() + " ";
+            str += "[" + this.livros.get(i).toString();
+            }
+            else{
+                str += "[-----] ";
             }
         }
-        str += "}\nLeitores: { ";
+    
+        str += """
+            }
+            Fila de Leitores: { """;
+    
         for(int i = 0 ; i < this.leitores.size() ; i++){
-            str += this.leitores.get(i).toString() + " ";
+            if(this.leitores.get(i) != null){
+                str += "[" + this.leitores.get(i).toString(); 
+            }
         }
         str += "}";
+        return str;
     }
-    // consertar o toString
-    
 }
