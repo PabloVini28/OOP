@@ -17,11 +17,16 @@ public class Rectangle extends Shape{
 
     @Override
     public double getArea() {
+<<<<<<< HEAD
         return Math.abs((P2.getX() - P1.getX()) * (P2.getY() - P1.getY()));
+=======
+        return (this.P2.getX() - this.P1.getX()) * (this.P1.getY() - this.P2.getY());
+>>>>>>> 8653f2946ffdaac19ef3d3b42b6489591f28b2d9
     }
 
     @Override
     public double getPerimeter() {
+<<<<<<< HEAD
         return 2 * (Math.abs(P2.getX() - P1.getX()) + Math.abs(P2.getY() - P1.getY()));
     }
     
@@ -30,6 +35,9 @@ public class Rectangle extends Shape{
     
         String out = "Rect: A=" + String.format("%.2f",getArea()) + " P=" + String.format("%.2f",getPerimeter());
         return out;
+=======
+        return 2* ((P2.getX() - P1.getX()) + (P1.getY() - P2.getY()));
+>>>>>>> 8653f2946ffdaac19ef3d3b42b6489591f28b2d9
     }
 
     
