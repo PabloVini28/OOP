@@ -1,6 +1,10 @@
 import java.text.DecimalFormat;
 import java.util.*;
 
+import exceptions.BreakPigFirst;
+import exceptions.PigIsBroken;
+import exceptions.PigIsFull;
+
 class Pig {
 
     private boolean broken;
@@ -16,22 +20,27 @@ class Pig {
     }
 
     public Coin createCoin(String valor) {
-        return switch (valor) {
-            case "10" -> Coin.C10;
-            case "25" -> Coin.C25;
-            case "50" -> Coin.C50;
-            case "100" -> Coin.C100;
-            default -> null;
-        };
+        switch (valor) {
+            case "10":
+                return Coin.C10;
+            case "25":
+                return Coin.C25;
+            case "50":
+                return Coin.C50;
+            case "100":
+                return Coin.C100;
+            default:
+                return null;
+        }
     }
 
     public boolean addCoin(Coin coin) throws Exception {
         if (this.broken) {
-            throw new Exception("fail: the pig is broken");
+            throw new PigIsBroken();
         }
 
         if (coin.getVolume() > this.getVolumeRestante()) {
-            throw new Exception("fail: the pig is full");
+            throw new PigIsFull();
         }
 
         this.coins.add( coin );
@@ -39,21 +48,22 @@ class Pig {
     }
 
     public boolean addItem(Item item) throws Exception {
-        if (this.broken) {
-            throw new Exception("fail: the pig is broken");
-        }
-
-        if (item.getVolume() > this.getVolumeRestante()) {
-            throw new Exception("fail: the pig is full");
-        }
-
-        this.items.add( item );
-        return true;
+    if (this.broken) {
+        throw new PigIsBroken();
     }
+
+    if (getVolume() + item.getVolume() > getVolumeMax()) {
+        throw new PigIsFull();
+    }
+
+    this.items.add(item);
+    return true;
+}
+
 
     public boolean breakPig() throws Exception {
         if (this.broken) {
-            throw new Exception("fail: the pig is broken");
+            throw new PigIsBroken();
         }
         
         this.broken = true;
@@ -62,7 +72,7 @@ class Pig {
 
     public ArrayList<String> extractCoins() throws Exception {
         if (!this.broken) {
-            throw new Exception("fail: you must break the pig first\n[]");
+            throw new BreakPigFirst();
         }
 
         ArrayList<String> labels = new ArrayList<>();
@@ -77,7 +87,7 @@ class Pig {
 
     public ArrayList<String> extractItems() throws Exception {
         if (!this.broken) {
-            throw new Exception("fail: you must break the pig first\n[]");
+            throw new BreakPigFirst();
         }
 
         ArrayList<String> labels = new ArrayList<>();
@@ -92,16 +102,43 @@ class Pig {
 
     @Override
     public String toString() {
-        // state=intact : coins=[] : items=[] : value=0.00 : volume=0/20
-        DecimalFormat d = new DecimalFormat("0.00");
-        String s = "state=";
-        s += ((this.broken) ? "broken" : "intact") + " : ";
-        s += "coins=" + this.coins + " : ";
-        s += "items=" + this.items + " : ";
-        s += "value=" + d.format(this.getValue()) + " : ";
-        s += "volume=" + this.getVolume() + "/" + this.getVolumeMax();
-        return s;
+        
+    DecimalFormat d = new DecimalFormat("0.00");
+    String s = "[";
+
+    for (int i = 0; i < this.coins.size(); i++) {
+        if (this.coins.size() - 1 == i) {
+            s += this.coins.get(i).toString();
+        } else {
+            s += this.coins.get(i).toString() + ", ";
+        }
     }
+
+    if (!this.items.isEmpty()) {
+        s += ", ";
+    }
+
+    for (int i = 0; i < this.items.size(); i++) {
+        if (this.items.size() - 1 == i) {
+            s += this.items.get(i).toString();
+        } else {
+            s += this.items.get(i).toString() + ", ";
+        }
+    }
+
+    s += "] : ";
+
+    s += String.format("%.2f", getValue()) + "$ : " + getVolume() + "/" + getVolumeMax() + " : ";
+
+    if (isBroken()) {
+        s += "broken";
+    } else {
+        s += "intact";
+    }
+
+    return s;
+    }
+
 
     public int getVolume() {
         if (this.isBroken()) {
@@ -122,6 +159,9 @@ class Pig {
         double value = 0;
         for (Coin c : this.coins) {
             value += c.getValue();
+        }
+        for(Item i: this.items){
+            value += i.getValue();
         }
         return value;
     }

@@ -1,10 +1,12 @@
 class Item {
 
     private String label;
+    private double value;
     private int volume;
 
-    public Item(String label, int volume) {
+    public Item(String label, float value,int volume) {
         this.label = label;
+        this.value = value;
         this.volume = volume;
     }
 
@@ -19,13 +21,21 @@ class Item {
     public int getVolume() {
         return this.volume;
     }
+    
+    public double getValue(){
+        return this.value;
+    }
 
     public void setVolume(int volume) {
         this.volume = volume;
     }
+    
+    public void setValue(float value){
+        this.value += value;
+    }
 
     @Override
     public String toString() {
-        return this.label + ":" + this.volume;
+        return  this.label + ":"+ String.format("%.2f",getValue())+":"+ this.volume;
     }
 }
