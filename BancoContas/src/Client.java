@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Client {
+public class Client{
     
     protected String clientId;
     protected ArrayList<Account> acoounts = new ArrayList<>();
@@ -23,6 +23,7 @@ public class Client {
     @Override
     public String toString() {
         String out = this.clientId + "[";
+        return out;
     }
 
 }
