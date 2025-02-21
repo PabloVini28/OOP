@@ -1,13 +1,15 @@
-public abstract class Account{
+abstract public class Account{
 
     protected double balance;
     protected int accId;
     protected String clientId;
     protected String typeId;
+    private static int nextAccountId;
 
-    Account(int accId, String clientId, String typeId){
+    public Account(String clientId, String typeId){
         this.balance = 0;
-        this.accId = accId;
+        this.accId = Account.nextAccountId;
+        Account.nextAccountId++;
         this.clientId = clientId;
         this.typeId = typeId;
     }
@@ -16,23 +18,20 @@ public abstract class Account{
         this.balance += value;
     }
 
-    public void withdraw(double value){
+    public void withdraw(double value) throws Exception{
         if(this.balance < value){
-            IO.println("saldo insuficiente");
+            throw new Exception("fail: saldo insuficiente");
         }
-        else{
-            this.balance -= value;
-        }
+        this.balance -= value;
+        
     }
 
-    public void transfer(Account other, double value){
+    public void transfer(Account other, double value) throws Exception{
         if(this.balance < value){
-            IO.println("saldo insuficiente");
+            throw new Exception("fail: saldo insuficiente");
         }
-        else{
-            other.balance += value;
-            this.balance -= value;
-        }
+        other.balance += value;
+        this.balance -= value;
     }
 
     public double getBalance(){
@@ -51,6 +50,13 @@ public abstract class Account{
         return this.typeId;
     }
 
-    abstract void updateMonthly();
+    abstract public void updateMonthly();
+    
+    @Override
+    public String toString(){
+        String out = getId() + ":" + getClientId() + ":" + String.format("%.2f",getBalance()) + ":" 
+        + getTypeStr() + "\n";
+        return out;
+    }
 
 }

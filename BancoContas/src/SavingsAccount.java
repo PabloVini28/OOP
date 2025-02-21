@@ -1,12 +1,13 @@
 public class SavingsAccount extends Account{
     protected double monthlyInterest;
 
-    SavingsAccount(int accId, String clientId){
-        super(accId,clientId,"CP");
+    public SavingsAccount(String clientId){
+        super(clientId,"CP");
+        this.monthlyInterest = 0.01;
     }
 
     @Override
     public void updateMonthly(){
-        
+        this.balance += (this.monthlyInterest * this.balance);
     }
 }

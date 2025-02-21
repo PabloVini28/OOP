@@ -3,18 +3,18 @@ import java.util.ArrayList;
 public class Client{
     
     protected String clientId;
-    protected ArrayList<Account> acoounts = new ArrayList<>();
+    protected ArrayList<Account> accounts = new ArrayList<>();
 
-    Client(String name, String clientId){
+    public Client(String clientId){
         this.clientId = clientId;
     }
 
     public void addAccount( Account acc ) {
-        this.acoounts.add(acc);
+        this.accounts.add(acc);
     }
 
     public ArrayList<Account> getAccounts() {
-        return this.acoounts;
+        return this.accounts;
     }
     public String getClientId() {
         return this.clientId;
@@ -22,7 +22,13 @@ public class Client{
 
     @Override
     public String toString() {
-        String out = this.clientId + "[";
+        String out = this.clientId + " [";
+
+        for(int i = 0 ; i < this.accounts.size() ; i++){
+            out += accounts.get(i).getId();
+            if(i < accounts.size()-1) out += ", ";
+        }
+        out += ']';
         return out;
     }
 

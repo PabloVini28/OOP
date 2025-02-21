@@ -1,14 +1,15 @@
 public class CheckingAccount extends Account{
     
-    private double monthlyFee;
+    private final double monthlyFee;
 
-    CheckingAccount(int accId, String clientId){
-        super(accId, clientId, "CC"); 
+    public CheckingAccount(String clientId){
+        super(clientId, "CC");
+        this.monthlyFee = 20; 
     }
 
     @Override
     public void updateMonthly(){
-
+        this.balance -= monthlyFee;
     }
 
 }
