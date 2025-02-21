@@ -24,7 +24,7 @@ public class Solver {
         }
     }
 
-    private static Scanner scanner = new Scanner(System.in);
+    private final static Scanner scanner = new Scanner(System.in);
     private static String  input()                { return scanner.nextLine();        }
     private static double  number(String value)   { return Double.parseDouble(value); }
     public  static void    println(Object value)  { System.out.println(value);        }
