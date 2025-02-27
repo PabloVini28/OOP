@@ -20,4 +20,13 @@ public class UFC {
     public void setBonus(int bonus){
         
     }
+
+    @Override
+    public String toString(){
+        String out = "";
+        for(Funcionario f : funcionarios.values()){
+            out += f.getClass() + ":" + f.getNome() + ":" + f.getClass() + ":" + f.getSalario();
+        }
+        return out;
+    }
 }

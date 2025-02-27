@@ -1,4 +1,5 @@
 public class STA extends Funcionario {
+
     protected int nivel;
 
     public STA(String nome, int nivel){
@@ -12,13 +13,19 @@ public class STA extends Funcionario {
 
     @Override
     public int getSalario(){
-        
+        int salario = 3000 + (300 * getNivel());
+        if(this.diarias == 1){
+            salario += 100;
+        }
+        return salario;
     }
 
     @Override
     public void addDiaria() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addDiaria'");
+        if(this.diarias == 1){
+            return;
+        }
+        this.diarias++;
     }
 
     @Override
